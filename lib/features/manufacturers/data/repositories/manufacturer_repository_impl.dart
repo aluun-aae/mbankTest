@@ -34,7 +34,6 @@ class ManufacturerRepositoryImpl implements ManufacturerRepository {
             (e) async {
               if (e != null) {
                 listOfManufacterModels.add(ManufacterModel.fromJson(e));
-                await SQLHelper.deleteManufacturerItem(e['Mfr_ID']);
                 await SQLHelper.createManufacterItem(
                   ManufacterModel.fromJson(e),
                 );
@@ -80,7 +79,6 @@ class ManufacturerRepositoryImpl implements ManufacturerRepository {
             if (e != null) {
               listOfMakesModel.add(MakesModel.fromJson(e));
 
-              await SQLHelper.deleteMakesItem(e['Model_Name']);
               await SQLHelper.createMakesItem(MakesModel.fromJson(e));
             }
           },

@@ -9,21 +9,19 @@ import '../../../features/manufacturers/data/models/manufacturer_model.dart';
 
 class SQLHelper {
   static Future<void> createTables(sql.Database database) async {
-    await database.execute(
-        """CREATE TABLE manufacturers(
+    await database.execute("""CREATE TABLE manufacturers(
+        Mfr_ID INTEGER PRIMARY KEY,
         Country TEXT,
         Mfr_CommonName TEXT,
-        Mfr_ID INTEGER,
         Mfr_Name TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
       """);
 
-    await database.execute(
-        """CREATE TABLE makes(        
+    await database.execute("""CREATE TABLE makes(        
         Make_ID INTEGER,
         Make_Name TEXT,
-        Model_ID INTEGER,
+        Model_ID INTEGER UNIQUE,
         Model_Name TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
       )
@@ -32,7 +30,7 @@ class SQLHelper {
 
   static Future<sql.Database> db() async {
     return sql.openDatabase(
-      join(await sql.getDatabasesPath(), 'example.db'),
+      join(await sql.getDatabasesPath(), 'aluun.db'),
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
